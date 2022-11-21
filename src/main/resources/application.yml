@@ -3,6 +3,8 @@ spring:
     view:
       prefix: /WEB-INF/views/
       suffix: .jsp
+    static-path-pattern: /resources/**
+
   devtools:
     livereload:
       enabled: true
@@ -18,4 +20,4 @@ server:
 
 #  myBatis 설정
 mybatis:
-  mapper-locations:classpath:mybatis/mapper/**/**.xml
+  mapper-locations: classpath:mybatis/mapper/**/**.xml

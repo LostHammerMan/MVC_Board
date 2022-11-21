@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--        private int user_idx;-->
+<!--        private String user_name;-->
+<!--        private String user_id;-->
+<!--        private String user_pw;-->
+<!--        private String user_email;-->
+<!--        private String user_addr;-->
+<!--        private String user_goal;-->
+
+<mapper namespace="com.example.demo.dao.UserDao">
+
+    <insert id="register" parameterType="com.example.demo.domain.UserVO">
+        <![CDATA[
+        insert into user_table (user_name, user_id, user_pw, user_email, zipcode, user_addr, user_detail_addr, user_goal)
+        values (
+            #{user_name}, #{user_id}, #{user_pw}, #{user_email},
+            #{zipcode} ,#{user_addr}, #{user_detail_addr}, #{user_goal}
+        )
+        ]]>
+    </insert>
+</mapper>

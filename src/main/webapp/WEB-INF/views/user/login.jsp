@@ -36,6 +36,7 @@
 							<label for="user_pw">비밀번호</label>
 							<input type="password" id="user_pw" name="user_pw" class="form-control"/>
 						</div>
+
 						<div class="form-group text-right">
 							<button type="submit" class="btn btn-primary">로그인</button>
 							<a href="join.jsp" class="btn btn-danger">회원가입</a>
