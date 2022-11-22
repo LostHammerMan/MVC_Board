@@ -13,6 +13,7 @@
 
 <mapper namespace="com.example.demo.dao.UserDao">
 
+<!--    회원가입-->
     <insert id="register" parameterType="com.example.demo.domain.UserVO">
         <![CDATA[
         insert into user_table (user_name, user_id, user_pw, user_email, zipcode, user_addr, user_detail_addr, user_goal)
@@ -22,4 +23,9 @@
         )
         ]]>
     </insert>
+
+<!-- 이메일 인증-->
+
+
+
 </mapper>

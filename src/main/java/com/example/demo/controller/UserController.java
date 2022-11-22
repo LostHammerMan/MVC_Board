@@ -56,25 +56,5 @@ public class UserController {
         return "user/modify_user";
     }
 
-    @GetMapping("/joinA")
-    public String joinA() {
-        log.info("joinA called..");
-        return "user/join_a";
-    }
 
-    @PostMapping("/joinAPro")
-    public String joinAPro(@ModelAttribute Data data) {
-        log.info("joinAPro called..");
-        return "user/join_a";
-    }
-    @GetMapping("/joinB")
-    public String joinB(@ModelAttribute Data data) {
-        log.info("joinB called..");
-        return "user/join_b";
-    }
-    @PostMapping("/joinBPro")
-    public String joinBPro(@ModelAttribute Data data) {
-        log.info("joinBPro called..");
-        return "user/join_b";
-    }
 }

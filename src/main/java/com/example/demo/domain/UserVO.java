@@ -16,5 +16,6 @@ public class UserVO {
     private String user_addr;
     private String user_detail_addr;
     private String user_goal;
+    private String certificationNumber;
 
 }
