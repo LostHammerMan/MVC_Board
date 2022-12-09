@@ -1,22 +1,18 @@
 package com.example.demo.service;
 
-import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
-import org.springframework.mail.javamail.MimeMailMessage;
 import org.springframework.stereotype.Service;
 
 import javax.mail.Message;
-import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.servlet.http.HttpSession;
-import java.io.UnsupportedEncodingException;
 import java.util.Random;
 
 @Service
+@Slf4j
 public class MailService {
 
     @Autowired
@@ -80,19 +76,19 @@ public class MailService {
     }
 
     // 메일 발송
-    public String sendSimpleMessage(String to, HttpSession session) throws Exception{
+    public String sendSimpleMessage(String to) throws Exception{
         epw = createKey(); // 랜덤 인증번호 생성
 
         MimeMessage message = createMessage(to);
 
         try {
             emailSender.send(message); // 메일 전송
-            session.setAttribute("epw", epw);
+
         }catch (MailException es){
             es.printStackTrace();
             throw new IllegalArgumentException();
         }
-
+        log.info("epw= "+epw);
         return epw;
     }
 

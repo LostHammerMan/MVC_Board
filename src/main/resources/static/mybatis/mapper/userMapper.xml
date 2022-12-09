@@ -24,23 +24,8 @@
         ]]>
     </insert>
 
-<!-- 중복 아이디 검사-->
-    <select id="checkUserIdExist" parameterType="string" resultType="string">
-        <![CDATA[
-        select user_name
-        from user_table
-        where user_id = #{user_id}
-        ]]>
-    </select>
+<!-- 이메일 인증-->
 
-<!--    로그인-->
-    <select id="getLoginUserInfo" resultType="com.example.demo.domain.UserVO">
-        <![CDATA[
-            select user_idx, user_name
-            from user_table
-            where user_id = #{user_id} and user_pw = #{user_pw}
-        ]]>
-    </select>
 
 
 </mapper>

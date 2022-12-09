@@ -1,16 +1,17 @@
 package com.example.demo.controller;
 
-import com.example.demo.domain.Data;
 import com.example.demo.domain.UserVO;
 import com.example.demo.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import javax.validation.Valid;
 
 @Slf4j
 @RequestMapping("/user")
@@ -20,33 +21,60 @@ public class UserController {
     @Autowired
     public UserService userService;
 
+    @Resource(name = "loginUserBean")
+    @Lazy
+    private UserVO loginUserBean;
+
 //    public UserController(UserService userService){
 //        this.userService = userService;
 //    }
+
+    // 회원가입
     @GetMapping("join")
-    public String join(@ModelAttribute("joinUserVO") UserVO joinUserVO){
+    public String join(@ModelAttribute("joinUserBean") UserVO joinUserBean){
         return "user/join";
     }
 
     @PostMapping("join_ok")
-    public String join_ok(@ModelAttribute("joinUserVO") UserVO joinUserVO, BindingResult result){
+    public String join_ok(@Valid @ModelAttribute("joinUserBean") UserVO joinUserBean, BindingResult result){
         if (result.hasErrors()){
+            log.info("error occur....");
             return "user/join";
         }
-        userService.register(joinUserVO);
+        userService.register(joinUserBean);
         log.info("join_ok........");
         return "user/join_ok";
     }
 
+    // 로그인
     @GetMapping("/login")
-    public String login(){
+    public String login(@ModelAttribute("tempLoginUserBean") UserVO tempLoginUserBean,
+                        @RequestParam(value = "fail", defaultValue = "false") boolean fail,
+                        Model model){
+        model.addAttribute("fail", fail);
         log.info("login called.....");
+
         return "user/login";
     }
 
+    @PostMapping("")
+    public String login_pro(@Valid @ModelAttribute("tempLoginUserBean") UserVO tempLoginUserBean, BindingResult result){
+
+        if (result.hasErrors()){
+            return "user/login";
+
+        }
+
+        userService.getLoginUserInfo(tempLoginUserBean);
+        return null;
+    }
+
+
+    // 로그아웃
     @GetMapping("logout")
     public String logout(){
         log.info("logout called...");
+        loginUserBean.setUserLogin(false);
         return "user/logout";
     }
 

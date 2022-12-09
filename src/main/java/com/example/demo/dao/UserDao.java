@@ -6,5 +6,12 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface UserDao {
 
-    public int register(UserVO vo);
+    // 회원 가입
+    public int register(UserVO joinUserBean);
+
+    // 중복 아이디 검사
+    public String checkUserIdExist(String user_id);
+
+    public UserVO getLoginUserInfo(UserVO user_idx);
+
 }
