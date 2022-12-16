@@ -20,6 +20,13 @@
     <hr>
     <a href="${root}test_sessionScope5">test_sessionScope4</a><br>
     <a href="${root}test_sessionScope_result5">result_sessionScope5</a><br>
+    <hr>
+    <a href="${root}test_session_bean1">test_session_bean1</a><br>
+    <a href="${root}test_session_bean1_result1">test_session_bean1_result1</a><br>
+    <hr>
+    <h1>ApplicationScope</h1><br>
+    <a href="${root}test_ApplicationScope1">test_ApplicationScope1</a><br>
+    <a href="${root}test_ApplicationScope1_result1">test_ApplicationScope1_result1</a><br>
 
 
 
