@@ -1,4 +1,4 @@
-package com.example.demo.interceptor;
+package com.example.demo.interceptor.test;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -8,11 +8,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Slf4j
-public class TestInterceptor7 implements HandlerInterceptor {
+public class TestInterceptor8 implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        log.info("TestInterceptor7 - preHandle called...");
+        log.info("TestInterceptor8 - preHandle called...");
 
         return true;
     }
@@ -21,12 +21,12 @@ public class TestInterceptor7 implements HandlerInterceptor {
     // Controller의 메서드가 호출된 후 호출
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        log.info("TestInterceptor7 - postHandle called...");
+        log.info("TestInterceptor8 - postHandle called...");
     }
 
     // view 처리까지 완료(응답결과 완료)되면 호출됨
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-        log.info("TestInterceptor7 - afterCompletion called...");
+        log.info("TestInterceptor8 - afterCompletion called...");
     }
 }

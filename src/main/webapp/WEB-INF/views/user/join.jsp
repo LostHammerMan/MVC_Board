@@ -82,7 +82,7 @@
 							<div id="sendMail">
 								<form:label path="user_email">이메일</form:label>
 								<form:input path="user_email" class="form-control" />&nbsp;&nbsp;
-								<button id="checkEmail" class="btn btn-primary">인증</button>
+								<button id="checkEmail" class="btn btn-primary">인증</button><br>
 								<form:errors path="user_email" cssStyle="color: red" />
 							</div><br>
 							<div>

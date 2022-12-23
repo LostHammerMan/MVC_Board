@@ -1,16 +1,48 @@
 package com.example.demo.config;
 
-import com.example.demo.interceptor.*;
+import com.example.demo.domain.UserVO;
+import com.example.demo.interceptor.TopMenuInterceptor;
+import com.example.demo.service.TopMenuInfoService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import javax.annotation.Resource;
+
 @Configuration // SpringMVC 관련 설정
-@ComponentScan("com.example.demo.beans")
 @ComponentScan("com.example.demo.exception")
+@Slf4j
 public class ServletAppContextJava implements WebMvcConfigurer {
+
+    @Autowired
+    TopMenuInfoService topMenuInfoService;
+
+    @Resource(name = "loginUserBean")
+    private UserVO loginUserBean;
+
+    // 인터셉터 등록
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        WebMvcConfigurer.super.addInterceptors(registry);
+
+        // 객체 생성
+        TopMenuInterceptor topMenuInterceptor = new TopMenuInterceptor(topMenuInfoService, loginUserBean);
+
+        // 등록
+        InterceptorRegistration reg1 = registry.addInterceptor(topMenuInterceptor);
+        log.info("addInterceptor called.......");
+        log.info("{}", topMenuInterceptor);
+
+        // 주소
+        reg1.addPathPatterns("/**");
+
+    }
+
 
 //    // 인터셉터 등록
 //    @Override

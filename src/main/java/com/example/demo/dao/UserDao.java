@@ -12,6 +12,6 @@ public interface UserDao {
     // 중복 아이디 검사
     public String checkUserIdExist(String user_id);
 
-    public UserVO getLoginUserInfo(UserVO user_idx);
+    public UserVO getLoginUserInfo(UserVO tempLoginUserBean);
 
 }

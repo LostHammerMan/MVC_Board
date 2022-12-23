@@ -1,6 +1,9 @@
 package com.example.demo.domain;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -8,35 +11,24 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 
-@Data
+@Getter
+@Setter
+@ToString
 public class UserVO {
 
+    // join
 
+    // login
+    // user_id, user_pw
+    // user_name, user_pw2, user_email
 
     private int user_idx;
 
-    @Size(min = 2, max = 4)
-    @Pattern(regexp = "[가-힣]*")
-    @NotBlank
     private String user_name;
-
-    @Size(min = 4, max = 12)
-    @Pattern(regexp = "[a-zA-Z0-9]*")
-    @NotBlank
     private String user_id;
-
-    @Size(min = 4, max = 16)
-    @Pattern(regexp = "[ㄱ-ㅎa-zA-Z0-9]*")
-    @NotBlank
     private String user_pw;
 
-    @Size(min = 4, max = 16)
-    @Pattern(regexp = "[ㄱ-ㅎa-zA-Z0-9]*")
-    @NotBlank
     private String user_pw2;
-
-    @Email(message = "옳바른 이메일 형식이 아닙니다")
-    @NotBlank
     private String user_email;
 
 //    @Pattern(regexp = "[0-9]")

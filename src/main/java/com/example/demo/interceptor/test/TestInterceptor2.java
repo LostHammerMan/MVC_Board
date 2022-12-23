@@ -1,4 +1,4 @@
-package com.example.demo.interceptor;
+package com.example.demo.interceptor.test;
 //
 //import org.springframework.web.servlet.handler.WebRequestHandlerInterceptorAdapter;
 //

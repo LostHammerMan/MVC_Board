@@ -2,11 +2,13 @@ package com.example.demo.service;
 
 import com.example.demo.dao.UserDao;
 import com.example.demo.domain.UserVO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
+@Slf4j
 @Service
 public class UserService {
 
@@ -37,7 +39,7 @@ public class UserService {
 
     // 로그인
     public void getLoginUserInfo(UserVO tempLoginUserBean){
-
+        log.info("service_getLoginUserInfo called");
         UserVO tempLoginUserBean2 = userDao.getLoginUserInfo(tempLoginUserBean);
 
         if (tempLoginUserBean2 != null){
