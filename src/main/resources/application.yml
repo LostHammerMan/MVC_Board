@@ -14,6 +14,10 @@ spring:
     url: jdbc:mysql://localhost:3306/MVCProject?serverTimezone=UTC&characterEncoding=UTF-8
     username: root
     password: 1234
+  security:
+    user:
+      name: user
+      password: 1234
 server:
   servlet:
     context-path: /MVCProject/
@@ -21,3 +25,5 @@ server:
 #  myBatis 설정
 mybatis:
   mapper-locations: classpath:mybatis/mapper/**/**.xml
+
+#  스프링 시큐리티 계정
