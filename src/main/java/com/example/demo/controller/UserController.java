@@ -57,7 +57,7 @@ public class UserController {
         return "user/join_ok";
     }
 
-    // 로그인
+    // 로그인 -> Security 파일 생성 후 작동 안함
     @GetMapping("/login")
     public String login(@ModelAttribute("tempLoginUserBean") UserVO tempLoginUserBean,
                         @RequestParam(value = "fail", defaultValue = "false") boolean fail,

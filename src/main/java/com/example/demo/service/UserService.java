@@ -4,6 +4,7 @@ import com.example.demo.dao.UserDao;
 import com.example.demo.domain.UserVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -15,6 +16,9 @@ public class UserService {
     @Autowired
     public UserDao userDao;
 
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @Resource(name = "loginUserBean")
     private UserVO loginUserBean;
 
@@ -23,6 +27,12 @@ public class UserService {
 //    }
 
     public void register(UserVO joinUserBean){
+
+        String rawPwd = joinUserBean.getUser_pw();
+        String encPwd = bCryptPasswordEncoder.encode(rawPwd);
+        log.info("encPwd = {}", encPwd);
+        joinUserBean.setUser_pw(encPwd);
+
 
         userDao.register(joinUserBean);
     }

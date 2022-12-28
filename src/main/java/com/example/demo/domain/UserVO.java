@@ -42,6 +42,9 @@ public class UserVO {
     private String user_goal;
 //    private String certificationNumber;
 
+    // 유저 권한
+    private String user_Role;
+
     // 중복 검사
     public boolean userIdExist;
 
