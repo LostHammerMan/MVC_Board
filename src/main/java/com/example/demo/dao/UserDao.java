@@ -1,6 +1,7 @@
 package com.example.demo.dao;
 
 import com.example.demo.domain.UserVO;
+import org.apache.catalina.User;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
@@ -14,4 +15,10 @@ public interface UserDao {
 
     public UserVO getLoginUserInfo(UserVO tempLoginUserBean);
 
+    // findBy 규칙 -> Username 문법
+    // select * from user_table where user_id = #{user_id}
+    public UserVO findByUserId(String user_id); // JPA Query Method
+
+//    public void modifyUser(UserVO user);
+    public int modifyUser(UserVO modifyUserBean);
 }

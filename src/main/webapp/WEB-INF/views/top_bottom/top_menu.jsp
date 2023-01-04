@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"  %>
 <c:set var="root" value="${pageContext.request.contextPath}/" />
 <!-- 상단 메뉴 부분 -->
 <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top shadow-lg">
@@ -32,24 +33,32 @@
             </c:forEach>
         </ul>
         <ul class="navbar-nav ml-auto">
-            <c:choose>
-                <c:when test="${loginUserBean.userLogin == true}">
+<%--            <c:choose>--%>
+<%--                <c:when test="${loginUserBean.userLogin == true}">--%>
+<%--                <c:when test="${loginUserBean.userLogin == true}">--%>
+<%--    표현식이 지정한 권한에 맞을 때만 출력--%>
+<%--   로그인이 되어 있는 경우--%>
+            <sec:authorize access="isAuthenticated()">
                     <li class="nav-item">
                         <a href="${root}user/modify" class="nav-link">정보수정</a>
                     </li>
                     <li class="nav-item">
                         <a href="${root}user/logout" class="nav-link">로그아웃</a>
                     </li>
-                </c:when>
-                <c:otherwise>
+            </sec:authorize>
+<%--                </c:when>--%>
+<%--                <c:otherwise>--%>
+<%--    로그인이 되어 있지 않은 경우--%>
+            <sec:authorize access="isAnonymous()">
                     <li class="nav-item">
                         <a href="${root}user/login" class="nav-link">로그인</a>
                     </li>
                     <li class="nav-item">
                         <a href="${root}user/join" class="nav-link">회원가입</a>
                     </li>
-                </c:otherwise>
-            </c:choose>
+            </sec:authorize>
+<%--                </c:otherwise>--%>
+<%--            </c:choose>--%>
 
         </ul>
     </div>

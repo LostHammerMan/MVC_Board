@@ -18,6 +18,7 @@ spring:
     user:
       name: user
       password: 1234
+
 server:
   servlet:
     context-path: /MVCProject/
@@ -26,4 +27,4 @@ server:
 mybatis:
   mapper-locations: classpath:mybatis/mapper/**/**.xml
 
-#  스프링 시큐리티 계정
+

@@ -3,11 +3,13 @@ package com.example.demo.service;
 import com.example.demo.dao.UserDao;
 import com.example.demo.domain.UserVO;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.security.Principal;
 
 @Slf4j
 @Service
@@ -58,6 +60,19 @@ public class UserService {
             loginUserBean.setUserLogin(true);
 
         }
+
+    }
+
+    // 회원정보 수정
+    public void modifyUser(UserVO modifyUserBean, Principal principal){
+
+        String rawPwd = modifyUserBean.getUser_pw();
+        String encPwd = bCryptPasswordEncoder.encode(rawPwd);
+        modifyUserBean.setUser_pw(encPwd);
+        String  user_id = principal.getName();
+        modifyUserBean.setUser_id(user_id);
+
+        userDao.modifyUser(modifyUserBean);
 
     }
 }

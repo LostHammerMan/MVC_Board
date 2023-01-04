@@ -24,6 +24,9 @@
         ]]>
     </insert>
 
+<!--    회원 정보 수정-->
+
+
 <!-- 중복 아이디 검사-->
     <select id="checkUserIdExist" parameterType="string" resultType="java.lang.String">
         <![CDATA[
@@ -41,6 +44,26 @@
             where user_id = #{user_id} and user_pw = #{user_pw}
         ]]>
     </select>
+
+<!--    아이디 찾기-->
+    <select id="findByUserId" resultType="com.example.demo.domain.UserVO">
+        <![CDATA[
+            select * from user_table
+            where user_id = #{user_id}
+        ]]>
+
+    </select>
+
+<!--   회원 정보 수정-->
+    <update id="modifyUser">
+
+        <![CDATA[
+            update user_table
+            set user_name = #{user_name}, user_pw = #{user_pw}
+            where user_id = #{user_id}
+
+        ]]>
+    </update>
 
 
 </mapper>

@@ -51,6 +51,9 @@ public class UserVO {
     // 로그인 여부
     private boolean userLogin;
 
+//    // 로그인 시간
+//    private TimeSta
+
     public UserVO(){
         this.userIdExist = false;
         this.userLogin = false;
