@@ -26,28 +26,35 @@
 		<div class="col-sm-6">
 			<div class="card shadow">
 				<div class="card-body">
-					<c:if test="${fail == true}">
-					<div class="alert alert-danger">
-						<h3>로그인 실패</h3>
-						<p>아이디 비밀번호를 확인해주세요</p>
-					</div>
-					</c:if>
 					<form:form action="${root}user/login_pro" method="post" modelAttribute="tempLoginUserBean">
 						<div class="form-group">
 							<form:label path="user_id">아이디</form:label>
-							<form:input path="user_id" class="form-control" />
-							<form:errors path="user_id" cssStyle="color: red"/>
+							<form:input path="user_id" class="form-control" autocomplete="false" />
+<%--							<form:errors path="user_id" cssStyle="color: red"/>--%>
 						</div>
 						<div class="form-group">
 							<form:label path="user_pw">비밀번호</form:label>
-							<form:password path="user_pw" class="form-control" />
-							<form:errors path="user_pw" cssStyle="color: red" />
+							<form:password path="user_pw" class="form-control" autocomplete="false"/>
+<%--							<form:errors path="user_pw" cssStyle="color: red" />--%>
 						</div>
 
 						<div class="form-group text-right">
 							<form:button class="btn btn-primary">로그인</form:button>
 							<a href="${root}user/join" class="btn btn-danger">회원가입</a>
 						</div>
+
+
+						<%--<c:if test="${error eq 'true'}">
+							<div class="alert alert-danger">
+								<h3>${error}</h3>
+								<p>${exception}</p>
+							</div>
+						</c:if>--%>
+						<c:if test="${not empty errorMessage}">
+							<div class="alert alert-danger">
+								<p>${errorMessage}</p>
+							</div>
+						</c:if>
 					</form:form>
 				</div>
 			</div>

@@ -20,10 +20,17 @@ public class PrincipalDetailsService implements UserDetailsService {
     // 시큐리티 session(내부 Authentication(내부 UserDetails))
     @Override
     public UserDetails loadUserByUsername(String user_id) throws UsernameNotFoundException {
+
+        // DB에서 해당 id가 등록되어 있는지 확인
         UserVO userEntity = userDao.findByUserId(user_id);
-        if (userEntity != null){
-            return new PrincipalDetails(userEntity);
+//        if (userEntity != null){
+//            return new PrincipalDetails(userEntity);
+//        }
+//        return null;
+        if (userEntity == null) {
+            throw new UsernameNotFoundException("user entity is null");
         }
-        return null;
+
+        return new PrincipalDetails(userEntity);
     }
 }

@@ -64,11 +64,13 @@ public class UserController {
     }
 
     // 로그인 -> Security 파일 생성 후 작동 안함
-    @GetMapping("/login")
+    /*@GetMapping("/login")
     public String login(@ModelAttribute("tempLoginUserBean") UserVO tempLoginUserBean,
                         @RequestParam(value = "fail", defaultValue = "false") boolean fail,
-                        Model model){
-        model.addAttribute("fail", fail);
+                        Model model){*/
+    //@RequestMapping("/login")
+    @GetMapping("/login")
+    public String login(@ModelAttribute("tempLoginUserBean") UserVO tempLoginUserBean, Model model) {
         log.info("login called.....");
         log.info("loginUserBean = {}", loginUserBean);
 

@@ -1,25 +1,34 @@
 package com.example.demo.config;
 
+import com.example.demo.config.handler.LoginFailureHandler;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+@RequiredArgsConstructor
 @Slf4j
 @Configuration
 @EnableWebSecurity // 스프링 시큐리티 필터가 스프링 필터체인에 등록됨
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    // 로그인 실패 핸들러 의존성 주입
+    private final LoginFailureHandler customFailureHandler;
 
     // 패스워드 암호화
     @Bean // 해당 메서드의 리턴되는 오브젝트롤 IoC로 등록
@@ -27,8 +36,15 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    // static 관련 설정은 무시
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/css/**", "/js/**", "/img/**");
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
         log.info("security called.........");
         http.csrf().disable();
         http.authorizeRequests()
@@ -43,18 +59,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                     .passwordParameter("user_pw")
                     .loginProcessingUrl("/user/login_pro") // login 주소가 호출되면 시큐리티가 낚아채서 대신 로그인 진행 -> Controller에 login_pro mapping 할 필요 없음
                     .defaultSuccessUrl("/") // 로그인 성공시 메인 페이지로 이동
-                .failureHandler(new AuthenticationFailureHandler() {
-                    @Override
-                    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
-                        response.setContentType("text/html;charset=utf-8");
-                        PrintWriter out = response.getWriter();
-                        String html = "<script>";
-                        html += "alert('로그인을 실패하였습니다');";
-                        html += "location.href='" + request.getContextPath() + "/user/login';";
-                        html += "</script>";
-                        out.print(html);
-                    }
-                })
+
+                .failureHandler(customFailureHandler) // 로그인 실패 핸들러 등록
+
+
             .and()
                 .logout()
                 .logoutUrl("/user/logout") // 로그아웃 처리 URL, 원칙적으로 post 방식만 지원
